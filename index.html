@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chris Dior - Streamer Website</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body, html {
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    color: #f0f0f0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #app {
+    width: 100%;
+    max-width: 600px;
+    background: #1e1e1e;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    padding: 30px 25px;
+    display: flex;
+    flex-direction: column;
+  }
+  #welcomeMsg {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    color: #64ffda;
+    font-weight: 700;
+    text-align: center;
+  }
+  #categories {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+  }
+  .category-btn {
+    flex: 1;
+    padding: 12px 0;
+    background: #2a2a2a;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s ease;
+    color: #ccc;
+    border: 2px solid transparent;
+  }
+  .category-btn:hover {
+    background: #333;
+  }
+  .category-btn.active {
+    background: #64ffda;
+    color: #121212;
+    border-color: #64ffda;
+  }
+  #contentArea {
+    background: #292929;
+    border-radius: 12px;
+    padding: 20px;
+    min-height: 140px;
+    color: #eee;
+    line-height: 1.6;
+    font-size: 1.05rem;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+  }
+  @media(max-width: 400px) {
+    #categories {
+      flex-direction: column;
+    }
+    .category-btn {
+      flex: none;
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div id="welcomeMsg">Willkommen auf meiner Streamer-Seite</div>
+  <div id="categories">
+    <div class="category-btn active" data-cat="me">Me</div>
+    <div class="category-btn" data-cat="discord">Discord</div>
+    <div class="category-btn" data-cat="youtube">YouTube</div>
+  </div>
+  <div id="contentArea"></div>
+</div>
+
+<script>
+  const categories = document.querySelectorAll('.category-btn');
+  const contentArea = document.getElementById('contentArea');
+
+  const categoryContent = {
+    me: `
+      <h2>Über mich</h2>
+      <p>Hey, ich bin Chris – leidenschaftlicher Gamer, Content Creator und Streamer.  
+      Hier dreht sich alles um spannende Gaming-Sessions, coole Community-Momente und jede Menge Spaß.  
+      Ich liebe es, mit Zuschauern zu interagieren, neue Games zu entdecken und gemeinsam unvergessliche Momente zu erleben.  
+      Lehn dich zurück, schnapp dir einen Snack und genieße den Stream!</p>
+    `,
+    discord: `
+      <h2>Community Discord</h2>
+      <p>Mein Discord-Server ist der Treffpunkt für alle, die Teil der Community werden wollen.  
+      Hier bekommst du <strong>exklusive Infos</strong>, kannst an <strong>Community-Events</strong> teilnehmen und dich mit anderen Zuschauern austauschen.  
+      Egal ob zum Chillen, Zocken oder einfach Quatschen – hier ist immer jemand online.</p>
+      <p><a href="https://discord.gg/FbFdUANb" target="_blank" style="color:#64ffda; text-decoration:none;">👾 Jetzt dem Discord beitreten</a></p>
+    `,
+    youtube: `
+      <h2>YouTube</h2>
+      <p>Auf meinem YouTube-Kanal findest du Highlights aus meinen Streams, spannende Gaming-Clips,  
+      lustige Momente und vielleicht auch mal den ein oder anderen Fail.  
+      Perfekt, um nichts zu verpassen – auch wenn du mal nicht live dabei sein konntest.</p>
+      <p><a href="https://www.youtube.com/@yxChrls" target="_blank" style="color:#64ffda; text-decoration:none;">🎥 Zum YouTube-Kanal</a></p>
+    `
+  };
+
+  function showCategory(cat) {
+    categories.forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`.category-btn[data-cat="${cat}"]`).classList.add('active');
+    contentArea.innerHTML = categoryContent[cat];
+  }
+
+  categories.forEach(btn => {
+    btn.addEventListener('click', () => {
+      showCategory(btn.dataset.cat);
+    });
+  });
+
+  // Standardmäßig "Me" anzeigen
+  showCategory('me');
+</script>
+
+</body>
+</html>
